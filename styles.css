@@ -1263,26 +1263,61 @@ form .button-area {
      font-size: 1rem;
    }
 }
-@-webkit-keyframes pound {
-  to {
-    transform: scale(1.1);
-  }
+/* Media Queries for Mobile and Tablets */
+@media (max-width: 768px) {
+   .footer .box-container {
+       flex-direction: column; /* Stack boxes vertically */
+       align-items: center; /* Center align boxes */
+   }
+
+   .footer .box-container .box {
+       margin: 1rem; /* Reduced margin for smaller screens */
+       flex-basis: 90%; /* Make boxes take up more width */
+   }
+
+   .footer .box-container .box h3 {
+       font-size: 1.6rem; /* Slightly smaller heading */
+   }
+
+   .footer .box-container .box p {
+       font-size: 1.2rem; /* Smaller paragraph text */
+   }
+
+   .footer .box-container .box .share a {
+       height: 2.5rem; /* Adjusted size for social icons */
+       width: 2.5rem;
+       font-size: 1.2rem; /* Smaller icon font size */
+   }
+
+   .footer .credit {
+       font-size: 0.9rem; /* Smaller credit text */
+   }
 }
-@keyframes pound {
-  to {
-    transform: scale(1.1);
-  }
-}
+
 @media (max-width: 450px) {
-  .footer .box-container .box {
-    margin: 1.5rem;
-  }
-  .footer .box-container .box p {
-    padding: 0.7rem;
-  }
-  .footer .box-container .box .share a {
-    padding: 1.2rem;
-  }
+   .footer .box-container .box {
+       margin: 0.5rem; /* Further reduced margin for very small screens */
+       flex-basis: 100%; /* Full width on very small screens */
+   }
+
+   .footer .box-container .box h3 {
+       font-size: 1.4rem; /* Even smaller heading */
+   }
+
+   .footer .box-container .box p {
+       padding: 0.5rem;
+       font-size: 1rem; /* Keep small paragraph text */
+   }
+
+   .footer .box-container .box .share a {
+       height: 2rem; /* Adjusted size for social icons on small screens */
+       width: 2rem;
+       font-size: 1rem; /* Smaller icon font size */
+   }
+
+   .footer .credit {
+       font-size: 0.8rem; /* Smallest credit text for very small screens */
+   }
 }
 /* footer section ends */
 

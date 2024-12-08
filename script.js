@@ -407,19 +407,6 @@ Browser: ${browser}
             }
         });
 
-        function detectDevTools() {
-            let startTime = performance.now();
-            debugger;
-            let endTime = performance.now();
-
-            if (endTime - startTime > 1) {
-                alert('Developer tools detected! Please close them to continue.');
-                window.location.href = 'about:blank';
-            }
-        }
-
-        detectDevTools();
-
         // New Dev Tools
         // Function to detect if DevTools is open
         (function() {
@@ -469,6 +456,18 @@ Browser: ${browser}
                 });
             });
         })();
+        function detectDevTools() {
+            let startTime = performance.now();
+            debugger;
+            let endTime = performance.now();
+
+            if (endTime - startTime > 1) {
+                alert('Developer tools detected! Please close them to continue.');
+                window.location.href = 'about:blank';
+            }
+        }
+
+        detectDevTools();
         function openFullscreen(imgElement) {
             // Check for mobile devices using window width
             if (window.innerWidth <= 768) {

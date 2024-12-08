@@ -124,6 +124,7 @@ body {
 
 /* navbar starts */
 header {
+  gap: 1rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -195,7 +196,6 @@ header .navbar ul li a:hover {
     display: block;
   }
   header .navbar {
-    gap: 1rem;
     position: fixed;
     top: 6.5rem;
     right: -120%;

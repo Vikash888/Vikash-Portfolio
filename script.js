@@ -21,7 +21,8 @@
 
     function handleDevToolsDetected() {
         alert('Developer Tools detected! Please close them to continue.');
-        window.location.href = 'error.html'; // Uncomment this line if you want to redirect
+        // Optionally redirect or perform other actions
+        // window.location.href = 'error.html'; // Uncomment this line if you want to redirect
     }
 
     window.addEventListener('load', () => {
@@ -70,16 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function detectDevTools() {
-        const threshold = 160;
-        const devToolsOpen = window.outerWidth - window.innerWidth > threshold || 
-                             window.outerHeight - window.innerHeight > threshold;
-
-        if (devToolsOpen) {
-            showCustomErrorModal('DevTools Detected', 'DevTools are not allowed to be opened.');
-        }
-    }
-
+    // Network Event Listeners
     window.addEventListener('online', () => {
         const errorModal = document.getElementById('custom-error-modal');
         if (errorModal) errorModal.remove();
@@ -87,14 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('offline', checkNetworkConnection);
 
-    document.addEventListener('keydown', (e) => {
-        if ((e.key === 'F12') || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
-            detectDevTools();
-            e.preventDefault();
-            showCustomErrorModal('DevTools Detected', 'DevTools are not allowed to be opened.');
-        }
-    });
-
+    // Prevent right-click context menu
     document.addEventListener('contextmenu', (e) => {
         e.preventDefault();
         showCustomErrorModal('Action Blocked', 'Right-click is disabled on this page.');
@@ -112,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial network check
     checkNetworkConnection();
-
 });
 
 // Theme toggle functionality
@@ -175,54 +159,10 @@ document.addEventListener('visibilitychange', () => {
     document.title = document.visibilityState === "visible" ? "Vikash's Portfolio" : "Please Come Back!🥺";
 });
 
-// Intersection Observer for navigation links
-document.addEventListener('DOMContentLoaded', () => {
-    
-   const navLinks = document.querySelectorAll('.navbar ul li a');
-
-   const observer = new IntersectionObserver((entries) => {
-
-       entries.forEach(entry => {
-
-           if (entry.isIntersecting) {
-
-               navLinks.forEach(link => link.classList.remove('active'));
-
-               const id = entry.target.getAttribute('id');
-               const activeLink = document.querySelector(`.navbar ul li a[href="#${id}"]`);
-
-               if (activeLink) activeLink.classList.add('active');
-
-           }
-       });
-   }, { threshold: 0.3 });
-
-   const sections = document.querySelectorAll('#home, #about, #skills, #projects, #education, #contact');
-
-   sections.forEach(section => observer.observe(section));
-
-   const currentHash = window.location.hash || '#home';
-   const initialActiveLink = document.querySelector(`.navbar ul li a[href="${currentHash}"]`);
-
-   if (initialActiveLink) navLinks.forEach(link => link.classList.remove('active'));
-   initialActiveLink?.classList.add('active');
-
-   navLinks.forEach(link => {
-       link.addEventListener('click', (event) => {
-           event.preventDefault();
-           navLinks.forEach(l => l.classList.remove('active'));
-           link.classList.add('active');
-
-           const targetId = link.getAttribute('href');
-           const targetSection = document.querySelector(targetId);
-           targetSection?.scrollIntoView({ behavior: 'smooth' });
-       });
-   });
-});
-
 // Discord webhook URL placeholder
 const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1262504162751680582/6BqMbWkomK8CpKQl2HaHVDWS-cAFEJtmGDbjsiBvBSNk14boIbZbXGm-Px7sDzUdU0I2';
 
+// Initial loading screen handling
 document.addEventListener("DOMContentLoaded", function () {
    setTimeout(() => { 
        document.getElementById("loadingScreen").style.display = "none"; 
@@ -230,6 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
    }, 1000);
 });
 
+// Function to get client IP address
 async function getClientip() {
    try{
        let response = await fetch("https://api.ipify.org?format=json");
@@ -241,11 +182,11 @@ async function getClientip() {
    }
 }
 
+// Function to get visitor location based on IP
 async function getVisitorLocation(ip) {
    try{
        let response = await fetch(`https://ipinfo.io/${ip}/json`);
        let data = await response.json();
-       console.log("Location data:", data);
        return { 
            country: data.country, 
            city: data.city, 
@@ -257,6 +198,9 @@ async function getVisitorLocation(ip) {
        return { country: "Unable to fetch location", city: "", latitude: "", longitude: "" };
    }
 }
+
+// Function to get visitor OS and browser information...
+// [Continue with your existing functions here]
 
 function getVisitorOS() {
    let os = "Unknown OS";

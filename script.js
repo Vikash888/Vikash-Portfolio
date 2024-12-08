@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // DevTools Detection
     function detectDevTools() {
-        const threshold = 160;
+        const threshold = 1;
         const devToolsOpen = window.outerWidth - window.innerWidth > threshold || 
                              window.outerHeight - window.innerHeight > threshold;
         

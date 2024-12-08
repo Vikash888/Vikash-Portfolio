@@ -13,7 +13,29 @@
                 e.preventDefault();
             }
         });
+// Example of a simple fetch request with error handling
+async function fetchData(url) {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        showCustomErrorModal('Fetch Error', error.message);
+    }
+}
 
+// Server-side validation example (pseudo-code)
+app.post('/submit-form', (req, res) => {
+    const { userInput } = req.body;
+    // Validate user input on the server
+    if (!isValid(userInput)) {
+        return res.status(400).send('Invalid input');
+    }
+    // Process valid input
+});
         // New Dev Tools
         // Function to detect if DevTools is open
         (function() {

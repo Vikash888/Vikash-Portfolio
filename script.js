@@ -1,3 +1,190 @@
+        window.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        window.addEventListener('keydown', function (e) {
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+        });
+
+        window.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+            }
+        });
+
+        // New Dev Tools
+        // Function to detect if DevTools is open
+        (function() {
+            const threshold = 1; // Time threshold for detection
+            const start = Date.now();
+            let devToolsOpen = false;
+        
+            // Function to check if DevTools are open
+            function checkDevTools() {
+                const end = Date.now();
+                const isDevToolsOpen = (end - start > threshold) && (window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160);
+        
+                if (isDevToolsOpen && !devToolsOpen) {
+                    devToolsOpen = true; // Set state to prevent multiple alerts
+                    handleDevToolsDetected();
+                } else if (!isDevToolsOpen && devToolsOpen) {
+                    devToolsOpen = false; // Reset state when DevTools are closed
+                }
+        
+                requestAnimationFrame(checkDevTools); // Continue checking
+            }
+        
+            // Function to handle what happens when DevTools is detected
+            function handleDevToolsDetected() {
+                alert('Developer Tools detected! Please close them to continue.');
+                // Optionally redirect or perform other actions
+                window.location.href = 'error.html'; // Uncomment this line if you want to redirect
+            }
+        
+            // Initial check on page load
+            window.addEventListener('load', () => {
+                checkDevTools(); // Start checking for DevTools
+        
+                // Check for resize events as an additional measure
+                window.addEventListener('resize', () => {
+                    const widthThreshold = window.outerWidth - window.innerWidth > 160;
+                    const heightThreshold = window.outerHeight - window.innerHeight > 160;
+        
+                    if (widthThreshold || heightThreshold) {
+                        if (!devToolsOpen) {
+                            devToolsOpen = true; // Set state to prevent multiple alerts
+                            handleDevToolsDetected();
+                        }
+                    } else if (devToolsOpen) {
+                        devToolsOpen = false; // Reset state when DevTools are closed
+                    }
+                });
+            });
+        })();
+document.addEventListener('DOMContentLoaded', () => {
+    // Prevent default 404 redirection
+    // window.addEventListener('error', (e) => {
+    //     e.preventDefault();
+    //     showCustomErrorModal('Resource Not Found', 'The requested page or resource could not be loaded.');
+    //     return false;
+    // }, true);
+
+    // Network and DevTools Error Handling
+    function showCustomErrorModal(title, message) {
+        // Check if modal already exists
+        if (document.getElementById('custom-error-modal')) return;
+
+        const modal = document.createElement('div');
+        modal.id = 'custom-error-modal';
+        modal.innerHTML = `
+            <div id="error-content">
+                <img src="./assets/images/404 Error.gif" alt="Error">
+                <h2>${title}</h2>
+                <p>${message}</p>
+                <button id="close-error">Close</button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        // Close modal functionality
+        document.getElementById('close-error').addEventListener('click', () => {
+            document.getElementById('custom-error-modal').remove();
+        });
+    }
+
+    // Network Connection Detection
+    function checkNetworkConnection() {
+        if (!navigator.onLine) {
+            showCustomErrorModal('Network Disconnected', 'Please check your internet connection and try again.');
+        }
+    }
+
+    // DevTools Detection
+    function detectDevTools() {
+        const threshold = 1;
+        const devToolsOpen = window.outerWidth - window.innerWidth > threshold || 
+                             window.outerHeight - window.innerHeight > threshold;
+        
+        if (devToolsOpen) {
+            showCustomErrorModal('DevTools Detected', 'DevTools are not allowed to be opened.');
+        }
+    }
+
+    // Network Event Listeners
+    window.addEventListener('online', () => {
+        const errorModal = document.getElementById('custom-error-modal');
+        if (errorModal) {
+            errorModal.remove();
+        }
+    });
+
+    window.addEventListener('offline', checkNetworkConnection);
+
+    // DevTools Detection Listeners
+    document.addEventListener('keydown', (e) => {
+        // F12 or Ctrl+Shift+I
+        if ((e.key === 'F12') || 
+            (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+            detectDevTools();
+            e.preventDefault();
+            showCustomErrorModal('DevTools Detected', 'DevTools are not allowed to be opened.');
+        }
+    });
+
+    // Prevent right-click context menu
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        showCustomErrorModal('Action Blocked', 'Right-click is disabled on this page.');
+    });
+
+    // Fetch Error Handling
+    window.addEventListener('fetch', (event) => {
+        event.respondWith(
+            fetch(event.request).catch(() => {
+                showCustomErrorModal('Fetch Error', 'Unable to load resource.');
+                return new Response(null, { status: 404 });
+            })
+        );
+    });
+
+    // Initial network check
+    window.addEventListener('load', checkNetworkConnection);
+});
+document.oncontextmenu = () => {
+    //alert("Don't try right click")
+    return false
+}
+document.onkeydown = e => {
+    //prevent f12 key
+    if(e.key == "F12"){
+      //  alert("Don't try to inspect code")
+      showCustomErrorModal('DevTools Detected', 'DevTools are not allowed to be opened.');  
+        return false
+    }
+    //prevent ctrl+u key
+    if(e.ctrlKey && e.key == "u") {
+        alert("Don't try to view page source")
+        return false
+    }
+    // //prevent copy key
+    // if(e.ctrlKey && e.key == "c") {
+    //     alert("Don't try to copy page")  
+    //     return false
+    // }
+    //prevent paste key
+    if(e.ctrlKey && e.key == "v") {
+        alert("Don't try to paste anything to the page")  
+        return false
+    }
+    //prevent selection key
+    if(e.ctrlKey && e.key == "a") {
+        alert("Don't try to select anything to the page")  
+        return false
+    }
+}
+
 $(document).ready(function () {
 
     $('#menu').click(function () {
@@ -147,127 +334,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-document.addEventListener('DOMContentLoaded', () => {
-    // Prevent default 404 redirection
-    window.addEventListener('error', (e) => {
-        e.preventDefault();
-        showCustomErrorModal('Resource Not Found', 'The requested page or resource could not be loaded.');
-        return false;
-    }, true);
-
-    // Network and DevTools Error Handling
-    function showCustomErrorModal(title, message) {
-        // Check if modal already exists
-        if (document.getElementById('custom-error-modal')) return;
-
-        const modal = document.createElement('div');
-        modal.id = 'custom-error-modal';
-        modal.innerHTML = `
-            <div id="error-content">
-                <img src="./assets/images/404 Error.gif" alt="Error">
-                <h2>${title}</h2>
-                <p>${message}</p>
-                <button id="close-error">Close</button>
-            </div>
-        `;
-        document.body.appendChild(modal);
-
-        // Close modal functionality
-        document.getElementById('close-error').addEventListener('click', () => {
-            document.getElementById('custom-error-modal').remove();
-        });
-    }
-
-    // Network Connection Detection
-    function checkNetworkConnection() {
-        if (!navigator.onLine) {
-            showCustomErrorModal('Network Disconnected', 'Please check your internet connection and try again.');
-        }
-    }
-
-    // DevTools Detection
-    function detectDevTools() {
-        const threshold = 1;
-        const devToolsOpen = window.outerWidth - window.innerWidth > threshold || 
-                             window.outerHeight - window.innerHeight > threshold;
-        
-        if (devToolsOpen) {
-            showCustomErrorModal('DevTools Detected', 'DevTools are not allowed to be opened.');
-        }
-    }
-
-    // Network Event Listeners
-    window.addEventListener('online', () => {
-        const errorModal = document.getElementById('custom-error-modal');
-        if (errorModal) {
-            errorModal.remove();
-        }
-    });
-
-    window.addEventListener('offline', checkNetworkConnection);
-
-    // DevTools Detection Listeners
-    document.addEventListener('keydown', (e) => {
-        // F12 or Ctrl+Shift+I
-        if ((e.key === 'F12') || 
-            (e.ctrlKey && e.shiftKey && e.key === 'I')) {
-            detectDevTools();
-            e.preventDefault();
-            showCustomErrorModal('DevTools Detected', 'DevTools are not allowed to be opened.');
-        }
-    });
-
-    // Prevent right-click context menu
-    document.addEventListener('contextmenu', (e) => {
-        e.preventDefault();
-        showCustomErrorModal('Action Blocked', 'Right-click is disabled on this page.');
-    });
-
-    // Fetch Error Handling
-    window.addEventListener('fetch', (event) => {
-        event.respondWith(
-            fetch(event.request).catch(() => {
-                showCustomErrorModal('Fetch Error', 'Unable to load resource.');
-                return new Response(null, { status: 404 });
-            })
-        );
-    });
-
-    // Initial network check
-    window.addEventListener('load', checkNetworkConnection);
-});
-document.oncontextmenu = () => {
-    //alert("Don't try right click")
-    return false
-}
-document.onkeydown = e => {
-    //prevent f12 key
-    if(e.key == "F12"){
-      //  alert("Don't try to inspect code")
-      showCustomErrorModal('DevTools Detected', 'DevTools are not allowed to be opened.');  
-        return false
-    }
-    //prevent ctrl+u key
-    if(e.ctrlKey && e.key == "u") {
-        alert("Don't try to view page source")
-        return false
-    }
-    // //prevent copy key
-    // if(e.ctrlKey && e.key == "c") {
-    //     alert("Don't try to copy page")  
-    //     return false
-    // }
-    //prevent paste key
-    if(e.ctrlKey && e.key == "v") {
-        alert("Don't try to paste anything to the page")  
-        return false
-    }
-    //prevent selection key
-    if(e.ctrlKey && e.key == "a") {
-        alert("Don't try to select anything to the page")  
-        return false
-    }
-}
 // Discord webhook URL placeholder
 const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1262504162751680582/6BqMbWkomK8CpKQl2HaHVDWS-cAFEJtmGDbjsiBvBSNk14boIbZbXGm-Px7sDzUdU0I2';
         document.addEventListener('DOMContentLoaded', function () {
@@ -391,83 +457,6 @@ Browser: ${browser}
             });
         });
 
-        window.addEventListener('contextmenu', function (e) {
-            e.preventDefault();
-        });
-
-        window.addEventListener('keydown', function (e) {
-            if (e.key === 'F12') {
-                e.preventDefault();
-            }
-        });
-
-        window.addEventListener('keydown', function (e) {
-            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
-                e.preventDefault();
-            }
-        });
-
-        // New Dev Tools
-        // Function to detect if DevTools is open
-        (function() {
-            const threshold = 200; // Time threshold for detection
-            const start = Date.now();
-            let devToolsOpen = false;
-        
-            // Function to check if DevTools are open
-            function checkDevTools() {
-                const end = Date.now();
-                const isDevToolsOpen = (end - start > threshold) && (window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160);
-        
-                if (isDevToolsOpen && !devToolsOpen) {
-                    devToolsOpen = true; // Set state to prevent multiple alerts
-                    handleDevToolsDetected();
-                } else if (!isDevToolsOpen && devToolsOpen) {
-                    devToolsOpen = false; // Reset state when DevTools are closed
-                }
-        
-                requestAnimationFrame(checkDevTools); // Continue checking
-            }
-        
-            // Function to handle what happens when DevTools is detected
-            function handleDevToolsDetected() {
-                alert('Developer Tools detected! Please close them to continue.');
-                // Optionally redirect or perform other actions
-                window.location.href = 'error.html'; // Uncomment this line if you want to redirect
-            }
-        
-            // Initial check on page load
-            window.addEventListener('load', () => {
-                checkDevTools(); // Start checking for DevTools
-        
-                // Check for resize events as an additional measure
-                window.addEventListener('resize', () => {
-                    const widthThreshold = window.outerWidth - window.innerWidth > 160;
-                    const heightThreshold = window.outerHeight - window.innerHeight > 160;
-        
-                    if (widthThreshold || heightThreshold) {
-                        if (!devToolsOpen) {
-                            devToolsOpen = true; // Set state to prevent multiple alerts
-                            handleDevToolsDetected();
-                        }
-                    } else if (devToolsOpen) {
-                        devToolsOpen = false; // Reset state when DevTools are closed
-                    }
-                });
-            });
-        })();
-        function detectDevTools() {
-            let startTime = performance.now();
-            debugger;
-            let endTime = performance.now();
-
-            if (endTime - startTime > 1) {
-                alert('Developer tools detected! Please close them to continue.');
-                window.location.href = 'about:blank';
-            }
-        }
-
-        detectDevTools();
         function openFullscreen(imgElement) {
             // Check for mobile devices using window width
             if (window.innerWidth <= 768) {

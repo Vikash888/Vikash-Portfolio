@@ -148,12 +148,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 document.addEventListener('DOMContentLoaded', () => {
-    // // Prevent default 404 redirection
-    // window.addEventListener('error', (e) => {
-    //     e.preventDefault();
-    //     showCustomErrorModal('Resource Not Found', 'The requested page or resource could not be loaded.');
-    //     return false;
-    // }, true);
+    // Prevent default 404 redirection
+    window.addEventListener('error', (e) => {
+        e.preventDefault();
+        showCustomErrorModal('Resource Not Found', 'The requested page or resource could not be loaded.');
+        return false;
+    }, true);
 
     // Network and DevTools Error Handling
     function showCustomErrorModal(title, message) {

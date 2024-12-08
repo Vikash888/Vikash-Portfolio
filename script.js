@@ -1,45 +1,7 @@
-        window.addEventListener('contextmenu', function (e) {
-            e.preventDefault();
-        });
-
-        window.addEventListener('keydown', function (e) {
-            if (e.key === 'F12') {
-                e.preventDefault();
-            }
-        });
-
-        window.addEventListener('keydown', function (e) {
-            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
-                e.preventDefault();
-            }
-        });
-// Example of a simple fetch request with error handling
-async function fetchData(url) {
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        showCustomErrorModal('Fetch Error', error.message);
-    }
-}
-
-// Server-side validation example (pseudo-code)
-app.post('/submit-form', (req, res) => {
-    const { userInput } = req.body;
-    // Validate user input on the server
-    if (!isValid(userInput)) {
-        return res.status(400).send('Invalid input');
-    }
-    // Process valid input
-});
         // New Dev Tools
         // Function to detect if DevTools is open
         (function() {
-            const threshold = 1; // Time threshold for detection
+            const threshold = 200; // Time threshold for detection
             const start = Date.now();
             let devToolsOpen = false;
         
@@ -86,7 +48,7 @@ app.post('/submit-form', (req, res) => {
             });
         })();
 document.addEventListener('DOMContentLoaded', () => {
-    // Prevent default 404 redirection
+    // // Prevent default 404 redirection
     // window.addEventListener('error', (e) => {
     //     e.preventDefault();
     //     showCustomErrorModal('Resource Not Found', 'The requested page or resource could not be loaded.');
@@ -125,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // DevTools Detection
     function detectDevTools() {
-        const threshold = 1;
+        const threshold = 160;
         const devToolsOpen = window.outerWidth - window.innerWidth > threshold || 
                              window.outerHeight - window.innerHeight > threshold;
         
@@ -478,6 +440,36 @@ Browser: ${browser}
                 sendToDiscord(ip, location, getVisitorOS(), getVisitorBrowser());
             });
         });
+
+        window.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        window.addEventListener('keydown', function (e) {
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+        });
+
+        window.addEventListener('keydown', function (e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+            }
+        });
+
+        function detectDevTools() {
+            let startTime = performance.now();
+            debugger;
+            let endTime = performance.now();
+
+            if (endTime - startTime > 1) {
+                alert('Developer tools detected! Please close them to continue.');
+                window.location.href = 'about:blank';
+            }
+        }
+
+        detectDevTools();
+
 
         function openFullscreen(imgElement) {
             // Check for mobile devices using window width

@@ -201,7 +201,6 @@ async function getVisitorLocation(ip) {
 
 // Function to get visitor OS and browser information...
 // [Continue with your existing functions here]
-
 function getVisitorOS() {
    let os = "Unknown OS";
    if (navigator.appVersion.indexOf("Win") != -1) os="Windows";

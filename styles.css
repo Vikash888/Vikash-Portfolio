@@ -172,7 +172,6 @@ header .navbar ul li a:hover {
   padding: 0.5rem 0;
 }
 .theme-toggle {
-  gap: 1rem;
   background: none;
   border: none;
   font-size: 2rem;

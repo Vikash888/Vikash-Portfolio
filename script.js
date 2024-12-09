@@ -7,17 +7,14 @@
 
     // Check for developer tools every second
     let devToolsOpened = false;
-    const threshold = 160; // Time threshold in milliseconds
 
-    setInterval(() => {
+    const checkDevTools = () => {
         const start = performance.now();
-        
-        // Perform a simple operation that may take longer if DevTools is open
-        const testArray = new Array(1000000).fill('test'); // Create a large array
+        debugger; // Trigger the debugger
         const end = performance.now();
-
-        // Check if the operation took too long (indicating DevTools might be open)
-        if (end - start > threshold) {
+        
+        // Check if the debugger was triggered for too long (developer tools open)
+        if (end - start > 100) {
             if (!devToolsOpened) {
                 devToolsOpened = true;
                 handleDevToolsDetected(); // Only trigger once
@@ -25,7 +22,9 @@
         } else {
             devToolsOpened = false; // Reset if developer tools are closed
         }
-    }, 1000);
+    };
+
+    setInterval(checkDevTools, 1000);
 })();
 
 $(document).ready(function () {

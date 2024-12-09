@@ -422,53 +422,52 @@ Browser: ${browser}
 
         // New Dev Tools
         // Function to detect if DevTools is open
-        (function() {
-            const threshold = 200; // Time threshold for detection
-            const start = Date.now();
-            let devToolsOpen = false;
-        
-            // Function to check if DevTools are open
-            function checkDevTools() {
-                const end = Date.now();
-                const isDevToolsOpen = (end - start > threshold) && (window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160);
-        
-                if (isDevToolsOpen && !devToolsOpen) {
+(function() {
+    const threshold = 200; // Time threshold for detection
+    let devToolsOpen = false;
+
+    // Function to check if DevTools are open
+    function checkDevTools() {
+        const start = Date.now();
+        const end = Date.now();
+        const isDevToolsOpen = (end - start > threshold) && (window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160);
+
+        if (isDevToolsOpen && !devToolsOpen) {
+            devToolsOpen = true; // Set state to prevent multiple alerts
+            handleDevToolsDetected();
+        } else if (!isDevToolsOpen && devToolsOpen) {
+            devToolsOpen = false; // Reset state when DevTools are closed
+        }
+    }
+
+    // Function to handle what happens when DevTools is detected
+    function handleDevToolsDetected() {
+        alert('Developer Tools detected! Please close them to continue.');
+        // Optionally redirect or perform other actions
+        window.location.href = 'error.html'; // Uncomment this line if you want to redirect
+    }
+
+    // Initial check on page load
+    window.addEventListener('load', () => {
+        // Use setInterval to check every second
+        setInterval(checkDevTools, 1000);
+
+        // Check for resize events as an additional measure
+        window.addEventListener('resize', () => {
+            const widthThreshold = window.outerWidth - window.innerWidth > 160;
+            const heightThreshold = window.outerHeight - window.innerHeight > 160;
+
+            if (widthThreshold || heightThreshold) {
+                if (!devToolsOpen) {
                     devToolsOpen = true; // Set state to prevent multiple alerts
                     handleDevToolsDetected();
-                } else if (!isDevToolsOpen && devToolsOpen) {
-                    devToolsOpen = false; // Reset state when DevTools are closed
                 }
-        
-                requestAnimationFrame(checkDevTools); // Continue checking
+            } else if (devToolsOpen) {
+                devToolsOpen = false; // Reset state when DevTools are closed
             }
-        
-            // Function to handle what happens when DevTools is detected
-            function handleDevToolsDetected() {
-                alert('Developer Tools detected! Please close them to continue.');
-                // Optionally redirect or perform other actions
-                window.location.href = 'error.html'; // Uncomment this line if you want to redirect
-            }
-        
-            // Initial check on page load
-            window.addEventListener('load', () => {
-                checkDevTools(); // Start checking for DevTools
-        
-                // Check for resize events as an additional measure
-                window.addEventListener('resize', () => {
-                    const widthThreshold = window.outerWidth - window.innerWidth > 160;
-                    const heightThreshold = window.outerHeight - window.innerHeight > 160;
-        
-                    if (widthThreshold || heightThreshold) {
-                        if (!devToolsOpen) {
-                            devToolsOpen = true; // Set state to prevent multiple alerts
-                            handleDevToolsDetected();
-                        }
-                    } else if (devToolsOpen) {
-                        devToolsOpen = false; // Reset state when DevTools are closed
-                    }
-                });
-            });
-        })();
+        });
+    });
+})();
         function openFullscreen(imgElement) {
             // Check for mobile devices using window width
             if (window.innerWidth <= 768) {

@@ -1,10 +1,3 @@
-(function() {
-    // Function to handle detection of Developer Tools
-    function handleDevToolsDetected() {
-        // Automatically redirect to error.html
-        window.location.href = 'error.html'; // Redirect immediately
-    }
-
     // Check for developer tools every second
     setInterval(() => {
     const start = performance.now();         
@@ -15,6 +8,12 @@
             handleDevToolsDetected();
         }
     }, 1000);
+(function() {
+    // Function to handle detection of Developer Tools
+    function handleDevToolsDetected() {
+        // Automatically redirect to error.html
+        window.location.href = 'error.html'; // Redirect immediately
+    }
 
     // Additional checks for common developer tools signs
     const devToolsCheck = setInterval(() => {

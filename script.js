@@ -7,7 +7,9 @@
 
     // Check for developer tools every second
     setInterval(() => {
-
+    const start = performance.now();         
+        debugger // Trigger the debugger             
+        handleDevToolsDetected();
         const end = performance.now();
         if (end - start > 100) {
             handleDevToolsDetected();

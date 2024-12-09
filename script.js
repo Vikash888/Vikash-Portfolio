@@ -407,23 +407,23 @@ Browser: ${browser}
             }
         });
 
-        function detectDevTools() {
-            let startTime = performance.now();
-            debugger;
-            let endTime = performance.now();
+        // function detectDevTools() {
+        //     let startTime = performance.now();
+        //     debugger;
+        //     let endTime = performance.now();
 
-            if (endTime - startTime > 1) {
-                alert('Developer tools detected! Please close them to continue.');
-                window.location.href = 'about:blank';
-            }
-        }
+        //     if (endTime - startTime > 1) {
+        //         alert('Developer tools detected! Please close them to continue.');
+        //         window.location.href = 'about:blank';
+        //     }
+        // }
 
-        detectDevTools();
+        // detectDevTools();
 
         // New Dev Tools
         // Function to detect if DevTools is open
         (function() {
-            const threshold = 1; // Time threshold for detection
+            const threshold = 200; // Time threshold for detection
             const start = Date.now();
             let devToolsOpen = false;
         

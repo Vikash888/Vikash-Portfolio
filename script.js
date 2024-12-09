@@ -185,10 +185,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // DevTools Detection
     function detectDevTools() {
-    const threshold = 160;
-    
-    function checkDevTools() {
+        const threshold = 160;
         const devToolsOpen = window.outerWidth - window.innerWidth > threshold || 
                              window.outerHeight - window.innerHeight > threshold;
         
@@ -196,31 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
             showCustomErrorModal('DevTools Detected', 'DevTools are not allowed to be opened.');
         }
     }
-
-    // Initial check
-    checkDevTools();
-
-    // Set interval to check every second
-    const intervalId = setInterval(checkDevTools, 1000);
-
-    // Optional: Return a way to stop the detection if needed
-    return {
-        stop: () => clearInterval(intervalId)
-    };
-}
-
-// Function to show custom error modal (you'll need to implement this)
-function showCustomErrorModal(title, message) {
-    // Implement your modal display logic here
-    console.warn(title + ': ' + message);
-    // You might want to add more robust error handling or UI blocking
-}
-
-// Call the detection function
-const devToolsDetector = detectDevTools();
-
-// If you ever want to stop detection:
-// devToolsDetector.stop();
 
     // Network Event Listeners
     window.addEventListener('online', () => {

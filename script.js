@@ -5,27 +5,40 @@
         window.location.href = 'error.html'; // Redirect immediately
     }
 
-    // Check for developer tools every second
-    let devToolsOpened = false;
+        function detectDevTools() {
+            let startTime = performance.now();
+            debugger;
+            let endTime = performance.now();
 
-    const checkDevTools = () => {
-        const start = performance.now();
-        debugger; // Trigger the debugger
-        const end = performance.now();
-        
-        // Check if the debugger was triggered for too long (developer tools open)
-        if (end - start > 100) {
-            if (!devToolsOpened) {
-                devToolsOpened = true;
-                handleDevToolsDetected(); // Only trigger once
+            if (endTime - startTime > 1) {
+                alert('Developer tools detected! Please close them to continue.');
+                window.location.href = 'error.html';
             }
-        } else {
-            devToolsOpened = false; // Reset if developer tools are closed
         }
-    };
 
-    setInterval(checkDevTools, 1000);
-})();
+        detectDevTools();
+
+//     // Check for developer tools every second
+//     let devToolsOpened = false;
+
+//     const checkDevTools = () => {
+//         const start = performance.now();
+//         debugger; // Trigger the debugger
+//         const end = performance.now();
+        
+//         // Check if the debugger was triggered for too long (developer tools open)
+//         if (end - start > 100) {
+//             if (!devToolsOpened) {
+//                 devToolsOpened = true;
+//                 handleDevToolsDetected(); // Only trigger once
+//             }
+//         } else {
+//             devToolsOpened = false; // Reset if developer tools are closed
+//         }
+//     };
+
+//     setInterval(checkDevTools, 1000);
+// })();
 
 $(document).ready(function () {
 

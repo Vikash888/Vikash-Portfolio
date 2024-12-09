@@ -407,17 +407,6 @@ Browser: ${browser}
             }
         });
 
-        function detectDevTools() {
-            let startTime = performance.now();
-            debugger;
-            let endTime = performance.now();
-
-            if (endTime - startTime > 1) {
-                alert('Developer tools detected! Please close them to continue.');
-                window.location.href = 'about:blank';
-            }
-        }
-
         detectDevTools();
 
         // New Dev Tools

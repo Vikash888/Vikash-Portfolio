@@ -12,7 +12,7 @@
 
         const end = performance.now();
         // If the time taken is significantly longer than expected, dev tools may be open
-        if (end - start > 100) {
+        if (end - start > 1) {
             handleDevToolsDetected();
         }
     }, 1000);

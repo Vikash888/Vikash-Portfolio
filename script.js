@@ -1,19 +1,28 @@
-    // Check for developer tools every second
-    setInterval(() => {
-    const start = performance.now();         
-        debugger // Trigger the debugger             
-        handleDevToolsDetected();
-        const end = performance.now();
-        if (end - start > 100) {
-            handleDevToolsDetected();
-        }
-    }, 1000);
 (function() {
     // Function to handle detection of Developer Tools
     function handleDevToolsDetected() {
         // Automatically redirect to error.html
         window.location.href = 'error.html'; // Redirect immediately
     }
+
+    // Check for developer tools every second
+    let devToolsOpened = false;
+    setInterval(() => {
+        const start = performance.now();         
+        debugger; // Trigger the debugger
+        const end = performance.now();
+        
+        // Check if the debugger was triggered for too long (developer tools open)
+        if (end - start > 100) {
+            if (!devToolsOpened) {
+                devToolsOpened = true;
+                handleDevToolsDetected(); // Only trigger once
+            }
+        } else {
+            devToolsOpened = false; // Reset if developer tools are closed
+        }
+    }, 1000);
+})();
 
     // Additional checks for common developer tools signs
     const devToolsCheck = setInterval(() => {

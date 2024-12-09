@@ -5,18 +5,21 @@
         window.location.href = 'error.html'; // Redirect immediately
     }
 
-    // Check for developer tools every second
 setInterval(() => {
-    const start = performance.now(); // Record start time
-    debugger; // Execution pauses here if dev tools are open
-    const end = performance.now(); // Record end time
+    const start = performance.now();
+    
+    // Perform a simple operation that should complete quickly
+    for (let i = 0; i < 100000; i++) {
+        Math.sqrt(i); // Example operation
+    }
+    
+    const end = performance.now();
 
-    // Check if execution time exceeds 1 millisecond
-    if (end - start > 1) {
+    // Check if the execution time exceeds a threshold
+    if (end - start > 1) { // Adjust this threshold as needed
         handleDevToolsDetected(); // Call detection function
     }
-}, 1000); // Repeat every 1000 milliseconds (1 second)
-
+}, 1000);
     // Additional checks for common developer tools signs
     const devToolsCheck = setInterval(() => {
         const devToolsOpen = /./;

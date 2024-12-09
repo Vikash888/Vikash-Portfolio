@@ -8,12 +8,13 @@
     // Check for developer tools every second
     setInterval(() => {
         const start = performance.now();
+            handleDevToolsDetected();
         debugger; // Trigger the debugger
 
         const end = performance.now();
         // If the time taken is significantly longer than expected, dev tools may be open
         if (end - start > 100) {
-            handleDevToolsDetected();
+
         }
     }, 1000);
 

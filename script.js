@@ -1,3 +1,15 @@
+setInterval(() => {
+    const start = performance.now();
+    debugger; // This will trigger if dev tools are open
+    const end = performance.now();
+    
+    // Check if the time taken to execute the debugger statement is greater than a threshold
+    if (end - start > 100) { // Adjust the threshold as necessary
+        console.log("Developer Tools are open");
+    } else {
+        console.log("Developer Tools are closed");
+    }
+}, 1000); // Check every second
 $(document).ready(function () {
 
     $('#menu').click(function () {
@@ -148,12 +160,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 document.addEventListener('DOMContentLoaded', () => {
-    // Prevent default 404 redirection
-    window.addEventListener('error', (e) => {
-        e.preventDefault();
-        showCustomErrorModal('Resource Not Found', 'The requested page or resource could not be loaded.');
-        return false;
-    }, true);
+    // // Prevent default 404 redirection
+    // window.addEventListener('error', (e) => {
+    //     e.preventDefault();
+    //     showCustomErrorModal('Resource Not Found', 'The requested page or resource could not be loaded.');
+    //     return false;
+    // }, true);
 
     // Network and DevTools Error Handling
     function showCustomErrorModal(title, message) {

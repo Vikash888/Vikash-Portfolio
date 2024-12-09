@@ -1,9 +1,8 @@
 (function() {
     // Function to handle detection of Developer Tools
     function handleDevToolsDetected() {
-        alert('Developer Tools detected! Please close them to continue.');
-        // Optionally redirect or perform other actions
-        window.location.href = 'error.html'; // Uncomment this line if you want to redirect
+        // Automatically redirect to error.html
+        window.location.href = 'error.html'; // Redirect immediately
     }
 
     // Check for developer tools every second

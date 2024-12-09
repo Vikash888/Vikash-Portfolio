@@ -1,25 +1,27 @@
-
-setInterval(() => {
-    const start = performance.now();
-    
-    // Perform a simple operation that should complete quickly
-    for (let i = 0; i < 100000; i++) {
-        Math.sqrt(i); // Example operation
-    }
-    
-    const end = performance.now();
-
-    // Check if the execution time exceeds a threshold
-    if (end - start > 1) { // Adjust this threshold as needed
-        handleDevToolsDetected(); // Call detection function
-    }
-}, 1000);
 (function() {
     // Function to handle detection of Developer Tools
     function handleDevToolsDetected() {
         // Automatically redirect to error.html
         window.location.href = 'error.html'; // Redirect immediately
     }
+
+    // Set an interval to check for Developer Tools
+    setInterval(() => {
+        const start = performance.now();
+        
+        // Perform a simple operation that should complete quickly
+        for (let i = 0; i < 100000; i++) {
+            Math.sqrt(i); // Example operation
+        }
+        
+        const end = performance.now();
+
+        // Check if the execution time exceeds a threshold
+        if (end - start > 1) { // Adjust this threshold as needed
+            handleDevToolsDetected(); // Call detection function
+        }
+    }, 1000); // Check every second
+})();
 
     // Additional checks for common developer tools signs
     const devToolsCheck = setInterval(() => {

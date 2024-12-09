@@ -1,14 +1,15 @@
 (function() {
     // Function to handle detection of Developer Tools
     function handleDevToolsDetected() {
-        }
-
+        // Automatically redirect to error.html
+        window.location.href = 'error.html'; // Redirect immediately
+    }
     // Check for developer tools every second
     setInterval(() => {
         const start = performance.now();
-            handleDevToolsDetected();
-        debugger; // Trigger the debugger
+
         const end = performance.now();
+                    handleDevToolsDetected();
         // If the time taken is significantly longer than expected, dev tools may be open
         if (end - start > 100) {
 

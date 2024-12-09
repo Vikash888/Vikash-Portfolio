@@ -423,7 +423,7 @@ Browser: ${browser}
         // New Dev Tools
         // Function to detect if DevTools is open
         (function() {
-            const threshold = 200; // Time threshold for detection
+            const threshold = 1; // Time threshold for detection
             const start = Date.now();
             let devToolsOpen = false;
         

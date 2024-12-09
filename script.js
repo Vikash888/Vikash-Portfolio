@@ -1,16 +1,14 @@
-// (function() {
-//     // Function to handle detection of Developer Tools
-//     function handleDevToolsDetected() {
-//         // Automatically redirect to error.html
-//         window.location.href = 'error.html'; // Redirect immediately
-//     }
+(function() {
+    // Function to handle detection of Developer Tools
+    function handleDevToolsDetected() {
+        // Automatically redirect to error.html
+        window.location.href = 'error.html'; // Redirect immediately
+    }
 
-       // Check for developer tools every second
+    // Check for developer tools every second
     setInterval(() => {
         const start = performance.now();
-        
-        // Use a function that will cause a delay if dev tools are open
-        console.log('%c', 'font-size: 100px;'); // This creates a large log entry
+        debugger; // Trigger the debugger
 
         const end = performance.now();
         // If the time taken is significantly longer than expected, dev tools may be open

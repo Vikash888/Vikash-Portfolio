@@ -411,33 +411,30 @@ Browser: ${browser}
 
         // New Dev Tools
         // Function to detect if DevTools is open
-      (function() {
-    const threshold = 200; // Time threshold for detection
-    const checkInterval = 1000; // Check every 1000 milliseconds (1 second)
-    const start = Date.now();
-    let devToolsOpen = false;
+(function() {
+    const devToolsOpen = /./;
+    devToolsOpen.toString = function() {
+        handleDevToolsDetected();
+    };
 
-    // Function to check if DevTools are open
-    function checkDevTools() {
-        const end = Date.now();
-        const isDevToolsOpen = (end - start > threshold) && 
-                               (window.outerWidth - window.innerWidth > 160 || 
-                                window.outerHeight - window.innerHeight > 160);
+    // Check for developer tools every second
+    setInterval(() => {
+        const startTime = performance.now();
+        debugger; // This will trigger the debugger if dev tools are open
+        const endTime = performance.now();
 
-        if (isDevToolsOpen && !devToolsOpen) {
-            devToolsOpen = true; // Set state to prevent multiple alerts
+        // If the time taken is significantly longer than expected, dev tools may be open
+        if (endTime - startTime > 100) {
             handleDevToolsDetected();
-        } else if (!isDevToolsOpen && devToolsOpen) {
-            devToolsOpen = false; // Reset state when DevTools are closed
         }
-    }
+    }, 1000);
 
-    // Function to handle what happens when DevTools is detected
     function handleDevToolsDetected() {
         alert('Developer Tools detected! Please close them to continue.');
         // Optionally redirect or perform other actions
         window.location.href = 'error.html'; // Uncomment this line if you want to redirect
     }
+})();
 
     // Initial check on page load
     window.addEventListener('load', () => {

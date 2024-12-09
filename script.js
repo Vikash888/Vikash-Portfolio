@@ -1,3 +1,39 @@
+(function() {
+    // Function to handle detection of Developer Tools
+    function handleDevToolsDetected() {
+        alert('Developer Tools detected! Please close them to continue.');
+        // Optionally redirect or perform other actions
+        window.location.href = 'error.html'; // Uncomment this line if you want to redirect
+    }
+
+    // Check for developer tools every second
+    setInterval(() => {
+        const start = performance.now();
+        debugger; // Trigger the debugger
+
+        const end = performance.now();
+        // If the time taken is significantly longer than expected, dev tools may be open
+        if (end - start > 100) {
+            handleDevToolsDetected();
+        }
+    }, 1000);
+
+    // Additional checks for common developer tools signs
+    const devToolsCheck = setInterval(() => {
+        const devToolsOpen = /./;
+        devToolsOpen.toString = function() {
+            handleDevToolsDetected();
+        };
+
+        // Check for console log manipulation
+        const originalLog = console.log;
+        console.log = function(...args) {
+            handleDevToolsDetected();
+            originalLog.apply(console, args);
+        };
+        
+    }, 1000);
+})();
 $(document).ready(function () {
 
     $('#menu').click(function () {
@@ -407,56 +443,68 @@ Browser: ${browser}
             }
         });
 
+        function detectDevTools() {
+            let startTime = performance.now();
+            debugger;
+            let endTime = performance.now();
+
+            if (endTime - startTime > 1) {
+                alert('Developer tools detected! Please close them to continue.');
+                window.location.href = 'about:blank';
+            }
+        }
+
         detectDevTools();
 
         // New Dev Tools
         // Function to detect if DevTools is open
-(function() {
-    const devToolsOpen = /./;
-    devToolsOpen.toString = function() {
-        handleDevToolsDetected();
-    };
-
-    // Check for developer tools every second
-    setInterval(() => {
-        const startTime = performance.now();
-        debugger; // This will trigger the debugger if dev tools are open
-        const endTime = performance.now();
-
-        // If the time taken is significantly longer than expected, dev tools may be open
-        if (endTime - startTime > 100) {
-            handleDevToolsDetected();
-        }
-    }, 1000);
-
-    function handleDevToolsDetected() {
-        alert('Developer Tools detected! Please close them to continue.');
-        // Optionally redirect or perform other actions
-        window.location.href = 'error.html'; // Uncomment this line if you want to redirect
-    }
-})();
-
-    // Initial check on page load
-    window.addEventListener('load', () => {
-        // Start checking for DevTools at intervals
-        setInterval(checkDevTools, checkInterval);
-
-        // Check for resize events as an additional measure
-        window.addEventListener('resize', () => {
-            const widthThreshold = window.outerWidth - window.innerWidth > 160;
-            const heightThreshold = window.outerHeight - window.innerHeight > 160;
-
-            if (widthThreshold || heightThreshold) {
-                if (!devToolsOpen) {
+        (function() {
+            const threshold = 200; // Time threshold for detection
+            const start = Date.now();
+            let devToolsOpen = false;
+        
+            // Function to check if DevTools are open
+            function checkDevTools() {
+                const end = Date.now();
+                const isDevToolsOpen = (end - start > threshold) && (window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160);
+        
+                if (isDevToolsOpen && !devToolsOpen) {
                     devToolsOpen = true; // Set state to prevent multiple alerts
                     handleDevToolsDetected();
+                } else if (!isDevToolsOpen && devToolsOpen) {
+                    devToolsOpen = false; // Reset state when DevTools are closed
                 }
-            } else if (devToolsOpen) {
-                devToolsOpen = false; // Reset state when DevTools are closed
+        
+                requestAnimationFrame(checkDevTools); // Continue checking
             }
-        });
-    });
-})();
+        
+            // Function to handle what happens when DevTools is detected
+            function handleDevToolsDetected() {
+                alert('Developer Tools detected! Please close them to continue.');
+                // Optionally redirect or perform other actions
+                window.location.href = 'error.html'; // Uncomment this line if you want to redirect
+            }
+        
+            // Initial check on page load
+            window.addEventListener('load', () => {
+                checkDevTools(); // Start checking for DevTools
+        
+                // Check for resize events as an additional measure
+                window.addEventListener('resize', () => {
+                    const widthThreshold = window.outerWidth - window.innerWidth > 160;
+                    const heightThreshold = window.outerHeight - window.innerHeight > 160;
+        
+                    if (widthThreshold || heightThreshold) {
+                        if (!devToolsOpen) {
+                            devToolsOpen = true; // Set state to prevent multiple alerts
+                            handleDevToolsDetected();
+                        }
+                    } else if (devToolsOpen) {
+                        devToolsOpen = false; // Reset state when DevTools are closed
+                    }
+                });
+            });
+        })();
         function openFullscreen(imgElement) {
             // Check for mobile devices using window width
             if (window.innerWidth <= 768) {

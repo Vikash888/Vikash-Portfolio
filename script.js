@@ -1,181 +1,38 @@
-class DevToolsDetector {
-  constructor(onDetected) {
-    this.onDetected = onDetected;
-    this.consecutiveDetections = 0;
-    this.maxConsecutiveDetections = 3;
-    this.detectionMethods = [
-      this.checkPerformanceHook,
-      this.checkConsoleProfiler,
-      this.checkDebuggerStatement,
-      this.checkDevToolsFeatures,
-      this.checkStackTraceLength
-    ];
-    this.initializeDetection();
-  }
+(function() {
+    // Function to handle detection of Developer Tools
+    function handleDevToolsDetected() {
+        // Automatically redirect to error.html
+        window.location.href = 'error.html'; // Redirect immediately
+    }
 
-  initializeDetection() {
-    // Multiple detection strategies
-    this.intervalId = setInterval(() => {
-      let detected = false;
-      
-      for (const method of this.detectionMethods) {
-        if (method.call(this)) {
-          detected = true;
-          break;
+    // Check for developer tools every second
+    setInterval(() => {
+        const start = performance.now();
+        debugger // Trigger the debugger
+            handleDevToolsDetected();
+        const end = performance.now();
+        // If the time taken is significantly longer than expected, dev tools may be open
+        if (end - start > 100) {
+            handleDevToolsDetected();
         }
-      }
+    }, 1000);
 
-      if (detected) {
-        this.consecutiveDetections++;
+    // Additional checks for common developer tools signs
+    const devToolsCheck = setInterval(() => {
+        const devToolsOpen = /./;
+        devToolsOpen.toString = function() {
+            handleDevToolsDetected();
+        };
+
+        // Check for console log manipulation
+        const originalLog = console.log;
+        console.log = function(...args) {
+            handleDevToolsDetected();
+            originalLog.apply(console, args);
+        };
         
-        if (this.consecutiveDetections >= this.maxConsecutiveDetections) {
-          this.stopDetection();
-          this.onDetected();
-        }
-      } else {
-        this.consecutiveDetections = 0;
-      }
-    }, 500); // Check every 500ms for more frequent checks
-  }
-
-  // Method 1: Performance Hook Detection
-  checkPerformanceHook() {
-    const start = performance.now();
-    debugger;
-    const end = performance.now();
-    return (end - start > 100);
-  }
-
-  // Method 2: Console Profiler Detection
-  checkConsoleProfiler() {
-    try {
-      console.profile('devtools');
-      console.profileEnd('devtools');
-      return false;
-    } catch (e) {
-      return true;
-    }
-  }
-
-  // Method 3: Debugger Statement Detection
-  checkDebuggerStatement() {
-    try {
-      const frame = this.getStackFrame();
-      return frame && frame.includes('debugger');
-    } catch {
-      return false;
-    }
-  }
-
-  // Method 4: Advanced DevTools Feature Detection
-  checkDevToolsFeatures() {
-    const threshold = 200;
-    const start = Date.now();
-    
-    // Check for specific DevTools-only features
-    try {
-      // Some browsers expose special properties when DevTools are open
-      if (window.console && window.console.debug 
-          && window.console.debug.toString().length > threshold) {
-        return true;
-      }
-    } catch {}
-
-    return false;
-  }
-
-  // Method 5: Stack Trace Length Detection
-  checkStackTraceLength() {
-    try {
-      this.generateLongStackTrace();
-      return false;
-    } catch (e) {
-      // DevTools typically changes stack trace behavior
-      return e.stack && e.stack.split('\n').length > 10;
-    }
-  }
-
-  // Auxiliary method to generate a complex stack trace
-  generateLongStackTrace() {
-    function recursiveMethod(depth) {
-      if (depth > 0) {
-        return recursiveMethod(depth - 1);
-      }
-      throw new Error('Stack trace check');
-    }
-    recursiveMethod(5);
-  }
-
-  // Helper to get stack frame details
-  getStackFrame() {
-    try {
-      throw new Error();
-    } catch (e) {
-      return e.stack;
-    }
-  }
-
-  // Stop detection interval
-  stopDetection() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
-  }
-
-  // Restart detection if needed
-  restartDetection() {
-    this.stopDetection();
-    this.initializeDetection();
-  }
-}
-
-// Usage Example
-function handleDevToolsDetected() {
-  console.error('DevTools Detected! Potential security breach.');
-  // Additional actions like:
-  // - Blocking further code execution
-  // - Redirecting the user
-  // - Logging the attempt
-  window.location.href = 'error.html'; // Example redirect
-}
-
-// Initialize the detector
-const detector = new DevToolsDetector(handleDevToolsDetected);
-// (function() {
-//     // Function to handle detection of Developer Tools
-//     function handleDevToolsDetected() {
-//         // Automatically redirect to error.html
-//         window.location.href = 'error.html'; // Redirect immediately
-//     }
-
-//     // Check for developer tools every second
-//     setInterval(() => {
-//         const start = performance.now();
-//         debugger // Trigger the debugger
-//             handleDevToolsDetected();
-//         const end = performance.now();
-//         // If the time taken is significantly longer than expected, dev tools may be open
-//         if (end - start > 100) {
-//             handleDevToolsDetected();
-//         }
-//     }, 1000);
-
-//     // Additional checks for common developer tools signs
-//     const devToolsCheck = setInterval(() => {
-//         const devToolsOpen = /./;
-//         devToolsOpen.toString = function() {
-//             handleDevToolsDetected();
-//         };
-
-//         // Check for console log manipulation
-//         const originalLog = console.log;
-//         console.log = function(...args) {
-//             handleDevToolsDetected();
-//             originalLog.apply(console, args);
-//         };
-        
-//     }, 1000);
-// })();
+    }, 1000);
+})();
 $(document).ready(function () {
 
     $('#menu').click(function () {

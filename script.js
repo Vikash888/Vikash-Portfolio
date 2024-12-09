@@ -5,16 +5,27 @@
         window.location.href = 'error.html'; // Redirect immediately
     }
 
-    // Function to detect if Developer Tools are open
-    function detectDevTools() {
-        const devToolsOpen = window.outerWidth - window.innerWidth > 100 || window.outerHeight - window.innerHeight > 100;
-        if (devToolsOpen) {
-            handleDevToolsDetected(); // Trigger if developer tools are open
-        }
-    }
-
     // Check for developer tools every second
-    setInterval(detectDevTools, 1000);
+    let devToolsOpened = false;
+    const threshold = 160; // Time threshold in milliseconds
+
+    setInterval(() => {
+        const start = performance.now();
+        
+        // Perform a simple operation that may take longer if DevTools is open
+        const testArray = new Array(1000000).fill('test'); // Create a large array
+        const end = performance.now();
+
+        // Check if the operation took too long (indicating DevTools might be open)
+        if (end - start > threshold) {
+            if (!devToolsOpened) {
+                devToolsOpened = true;
+                handleDevToolsDetected(); // Only trigger once
+            }
+        } else {
+            devToolsOpened = false; // Reset if developer tools are closed
+        }
+    }, 1000);
 })();
 
 $(document).ready(function () {

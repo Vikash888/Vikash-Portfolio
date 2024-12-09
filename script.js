@@ -24,22 +24,6 @@
     }, 1000);
 })();
 
-    // Additional checks for common developer tools signs
-    const devToolsCheck = setInterval(() => {
-        const devToolsOpen = /./;
-        devToolsOpen.toString = function() {
-            handleDevToolsDetected();
-        };
-
-        // Check for console log manipulation
-        const originalLog = console.log;
-        console.log = function(...args) {
-            handleDevToolsDetected();
-            originalLog.apply(console, args);
-        };
-        
-    }, 1000);
-})();
 $(document).ready(function () {
 
     $('#menu').click(function () {

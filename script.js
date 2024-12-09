@@ -18,24 +18,24 @@
 
         detectDevTools();
 
-//     // Check for developer tools every second
-//     let devToolsOpened = false;
+    // Check for developer tools every second
+    let devToolsOpened = false;
 
-//     const checkDevTools = () => {
-//         const start = performance.now();
-//         debugger; // Trigger the debugger
-//         const end = performance.now();
+    const checkDevTools = () => {
+        const start = performance.now();
+        debugger; // Trigger the debugger
+        const end = performance.now();
         
-//         // Check if the debugger was triggered for too long (developer tools open)
-//         if (end - start > 100) {
-//             if (!devToolsOpened) {
-//                 devToolsOpened = true;
-//                 handleDevToolsDetected(); // Only trigger once
-//             }
-//         } else {
-//             devToolsOpened = false; // Reset if developer tools are closed
-//         }
-//     };
+        // Check if the debugger was triggered for too long (developer tools open)
+        if (end - start > 100) {
+            if (!devToolsOpened) {
+                devToolsOpened = true;
+                handleDevToolsDetected(); // Only trigger once
+            }
+        } else {
+            devToolsOpened = false; // Reset if developer tools are closed
+        }
+    };
 
 //     setInterval(checkDevTools, 1000);
 // })();

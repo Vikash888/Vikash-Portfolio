@@ -1,9 +1,7 @@
 (function() {
     // Function to handle detection of Developer Tools
     function handleDevToolsDetected() {
-        // Automatically redirect to error.html
-        window.location.href = 'error.html'; // Redirect immediately
-    }
+        }
 
     // Check for developer tools every second
     setInterval(() => {

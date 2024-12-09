@@ -6,15 +6,16 @@
     }
 
     // Check for developer tools every second
-    setInterval(() => {
-        const start = performance.now();
+setInterval(() => {
+    const start = performance.now(); // Record start time
+    debugger; // Execution pauses here if dev tools are open
+    const end = performance.now(); // Record end time
 
-        const end = performance.now();
-        // If the time taken is significantly longer than expected, dev tools may be open
-        if (end - start > 1) {
-            handleDevToolsDetected();
-        }
-    }, 1000);
+    // Check if execution time exceeds 1 millisecond
+    if (end - start > 1) {
+        handleDevToolsDetected(); // Call detection function
+    }
+}, 1000); // Repeat every 1000 milliseconds (1 second)
 
     // Additional checks for common developer tools signs
     const devToolsCheck = setInterval(() => {

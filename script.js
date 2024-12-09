@@ -5,10 +5,12 @@
         window.location.href = 'error.html'; // Redirect immediately
     }
 
-    // Check for developer tools every second
+       // Check for developer tools every second
     setInterval(() => {
         const start = performance.now();
-        debugger; // Trigger the debugger
+        
+        // Use a function that will cause a delay if dev tools are open
+        console.log('%c', 'font-size: 100px;'); // This creates a large log entry
 
         const end = performance.now();
         // If the time taken is significantly longer than expected, dev tools may be open

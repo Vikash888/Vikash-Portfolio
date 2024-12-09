@@ -23,10 +23,6 @@
             devToolsOpened = false; // Reset if developer tools are closed
         }
     };
-
-//     setInterval(checkDevTools, 1000);
-// })();
-
 $(document).ready(function () {
 
     $('#menu').click(function () {

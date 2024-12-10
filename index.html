@@ -139,16 +139,22 @@ class DevToolsDetector {
     this.initializeDetection();
   }
 }
-
-// Usage Example
 function handleDevToolsDetected() {
   console.error('DevTools Detected! Potential security breach.');
-  // Additional actions like:
-  // - Blocking further code execution
-  // - Redirecting the user
-  // - Logging the attempt
-  window.location.href = 'error.html'; // Example redirect
+  setTimeout(() => {
+    window.location.href = 'error.html';
+  }, 1000); // Slight delay for debugging logs
 }
+
+// // Usage Example
+// function handleDevToolsDetected() {
+//   console.error('DevTools Detected! Potential security breach.');
+//   // Additional actions like:
+//   // - Blocking further code execution
+//   // - Redirecting the user
+//   // - Logging the attempt
+//   window.location.href = 'error.html'; // Example redirect
+// }
 
 // Initialize the detector
 const detector = new DevToolsDetector(handleDevToolsDetected);

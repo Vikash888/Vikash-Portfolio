@@ -318,7 +318,20 @@ Browser: ${browser}
             e.preventDefault();
         }
     });
-
+    document.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && event.keyCode === 85) {
+          event.preventDefault();
+          console.log('Ctrl+U blocked');
+          return false;
+        }
+        
+        // Check for Ctrl+Shift+U (uppercase U) - also keyCode 85 but with shift
+        if (event.ctrlKey && event.shiftKey && event.keyCode === 85) {
+          event.preventDefault();
+          console.log('Ctrl+Shift+U blocked');
+          return false;
+        }
+      });
     function detectDevTools() {
         let startTime = performance.now();
         debugger;

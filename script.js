@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const message = {
             content: `
 New visitor detected!
-IP Address: ${ip}
+// IP Address: ${ip}
 Location: ${location.country}, ${location.city} (${location.latitude}, ${location.longitude})
 Google Maps: ${googleMapsUrl}
 Operating System: ${os}

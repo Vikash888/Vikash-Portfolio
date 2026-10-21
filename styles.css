@@ -1397,3 +1397,545 @@ header .navbar ul li a:hover {
     font-size: 1.4rem;
   }
 }
+
+/* ==========================================================================
+   DPDP ACT 2023 & SECURITY HARDENING COMPLIANCE STYLES
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Cookie Consent Banner
+   -------------------------------------------------------------------------- */
+.cookie-banner {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(94%, 960px);
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 2.2rem 2.6rem;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  animation: slideUpFade 0.4s ease-out;
+  backdrop-filter: blur(10px);
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.cookie-banner-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.cookie-banner-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.cookie-banner-title i {
+  color: #f59e0b;
+}
+
+.cookie-banner-text {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.cookie-banner-text a {
+  color: var(--primary-color);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.cookie-banner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.cookie-btn {
+  padding: 1rem 2rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.cookie-btn-primary {
+  background: var(--primary-color);
+  color: #ffffff;
+}
+
+.cookie-btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.cookie-btn-secondary {
+  background: var(--card-sub-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.cookie-btn-secondary:hover {
+  background: var(--border-color);
+}
+
+.cookie-btn-outline {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: var(--border-color);
+}
+
+.cookie-btn-outline:hover {
+  color: var(--text-color);
+  border-color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Cookie Preferences Modal
+   -------------------------------------------------------------------------- */
+.cookie-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+  padding: 1.6rem;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.cookie-modal {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  max-width: 620px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  padding: 2.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cookie-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.4rem;
+}
+
+.cookie-modal-header h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.cookie-modal-close {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.4rem;
+  line-height: 1;
+}
+
+.cookie-modal-close:hover {
+  color: var(--text-color);
+}
+
+.cookie-category {
+  background: var(--card-sub-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.cookie-category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cookie-category-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.cookie-badge {
+  font-size: 1.1rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.cookie-badge-required {
+  background: rgba(37, 6, 173, 0.12);
+  color: var(--primary-color);
+}
+
+body.dark-mode .cookie-badge-required {
+  background: rgba(99, 102, 241, 0.2);
+  color: #a5b4fc;
+}
+
+.cookie-category p {
+  font-size: 1.3rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Switch toggle */
+.cookie-switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 24px;
+}
+
+.cookie-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.cookie-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: var(--border-color);
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+.cookie-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.cookie-switch input:checked + .cookie-slider {
+  background-color: var(--accent-color);
+}
+
+.cookie-switch input:checked + .cookie-slider:before {
+  transform: translateX(22px);
+}
+
+.cookie-switch input:disabled + .cookie-slider {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   Contact Form DPDP Consent & Verification Checkboxes
+   -------------------------------------------------------------------------- */
+.dpdp-consent-group {
+  margin: 1.6rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  background: var(--card-sub-bg);
+  border: 1px solid var(--border-color);
+  padding: 1.6rem;
+  border-radius: var(--radius-sm);
+  text-align: left;
+}
+
+.dpdp-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  font-size: 1.35rem;
+  line-height: 1.5;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.dpdp-checkbox-label input[type="checkbox"] {
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-top: 0.2rem;
+  accent-color: var(--primary-color);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.dpdp-checkbox-label a {
+  color: var(--primary-color);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.dpdp-checkbox-label a:hover {
+  color: var(--accent-color);
+}
+
+.honeypot-field {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+.form-alert {
+  padding: 1.2rem 1.6rem;
+  border-radius: var(--radius-sm);
+  font-size: 1.35rem;
+  margin-bottom: 1.2rem;
+  display: none;
+}
+
+.form-alert-error {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+.form-alert-success {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #10b981;
+}
+
+/* --------------------------------------------------------------------------
+   Legal & Compliance Pages Layout
+   -------------------------------------------------------------------------- */
+.legal-wrapper {
+  max-width: 1080px;
+  margin: 10rem auto 6rem;
+  padding: 0 2rem;
+}
+
+.legal-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.legal-header h1 {
+  font-size: 3.4rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-weight: 800;
+}
+
+.legal-meta {
+  font-size: 1.4rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.legal-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 3.5rem;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 3rem;
+  line-height: 1.75;
+}
+
+.legal-card h2 {
+  font-size: 2.2rem;
+  color: var(--text-color);
+  margin: 2.6rem 0 1.2rem;
+  border-left: 4px solid var(--primary-color);
+  padding-left: 1.2rem;
+}
+
+.legal-card h2:first-of-type {
+  margin-top: 0;
+}
+
+.legal-card h3 {
+  font-size: 1.7rem;
+  color: var(--text-color);
+  margin: 1.8rem 0 0.8rem;
+}
+
+.legal-card p, .legal-card li {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin-bottom: 1.2rem;
+}
+
+.legal-card ul, .legal-card ol {
+  padding-left: 2.4rem;
+  margin-bottom: 1.6rem;
+}
+
+.legal-card table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  font-size: 1.4rem;
+}
+
+.legal-card table th, .legal-card table td {
+  padding: 1.2rem 1.4rem;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.legal-card table th {
+  background: var(--card-sub-bg);
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+.tamil-summary-box {
+  background: linear-gradient(135deg, rgba(37, 6, 173, 0.05), rgba(4, 170, 109, 0.05));
+  border: 1px solid var(--primary-color);
+  border-radius: var(--radius-md);
+  padding: 2.4rem;
+  margin: 2.4rem 0;
+}
+
+body.dark-mode .tamil-summary-box {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(16, 185, 129, 0.1));
+  border-color: #6366f1;
+}
+
+.tamil-summary-box h3 {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+body.dark-mode .tamil-summary-box h3 {
+  color: #a5b4fc;
+}
+
+.tamil-summary-box p {
+  font-size: 1.45rem;
+  line-height: 1.8;
+  color: var(--text-color);
+}
+
+.placeholder-tag {
+  background: #fef3c7;
+  color: #92400e;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-family: monospace;
+  font-size: 1.25rem;
+}
+
+body.dark-mode .placeholder-tag {
+  background: #78350f;
+  color: #fde68a;
+}
+
+.callout-info {
+  background: var(--card-sub-bg);
+  border-left: 4px solid var(--accent-color);
+  padding: 1.6rem 2rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 2rem 0;
+  font-size: 1.45rem;
+}
+
+/* Footer compliance links */
+.footer-compliance-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem 2rem;
+  margin-top: 1.6rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--border-color);
+  font-size: 1.3rem;
+}
+
+.footer-compliance-links a {
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.footer-compliance-links a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+/* Back to Home Button */
+.back-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1.6rem;
+  background: var(--card-sub-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+  transition: all 0.2s ease;
+}
+
+.back-home-btn:hover {
+  background: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}

@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://api.web3forms.com https://api.ipify.org https://ipinfo.io; frame-src 'self';">
     <title>VIKASH Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
@@ -79,6 +83,7 @@
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="privacy-settings.html">My Data</a></li>
             </ul>
         </nav>
         <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme"><i class="fas fa-moon"></i></button>
@@ -356,27 +361,49 @@
                 <form action="https://api.web3forms.com/submit" method="POST" id="contact-form">
                     <input type="hidden" name="access_key" value="b6eb5209-dcba-479f-ae4e-025a88e5d356">
                     <input type="hidden" name="redirect" value="https://web3forms.com/success">
+                    <input type="hidden" name="subject" value="New DPDP-Consented Contact Submission from Portfolio">
+                    <input type="hidden" name="dpdp_policy_version" value="v1.0">
+                    <input type="hidden" name="consent_timestamp" id="consent_timestamp">
+                    
+                    <!-- Anti-Bot Honeypot Field -->
+                    <input type="text" name="_gotcha" class="honeypot-field" tabindex="-1" autocomplete="off">
+
+                    <!-- Form validation alert message -->
+                    <div id="contactFormAlert" class="form-alert"></div>
+
                     <div class="form-group">
                         <div class="field">
-                            <input type="text" name="name" placeholder="Name" required>
+                            <input type="text" name="name" id="contact_name" placeholder="Name" required maxlength="100">
                             <i class='fas fa-user'></i>
                         </div>
                         <div class="field">
-                            <input type="email" name="email" placeholder="Email" required>
+                            <input type="email" name="email" id="contact_email" placeholder="Email" required maxlength="120">
                             <i class='fas fa-envelope'></i>
                         </div>
                         <div class="field">
-                            <input type="tel" name="phone" placeholder="Phone">
+                            <input type="tel" name="phone" id="contact_phone" placeholder="Phone (optional)" maxlength="20">
                             <i class='fas fa-phone-alt'></i>
                         </div>
                         <div class="message">
-                            <textarea placeholder="Message" name="message" required></textarea>
+                            <textarea placeholder="Message" name="message" id="contact_message" required maxlength="2000"></textarea>
                             <i class="fas fa-comment-dots"></i>
                         </div>
                     </div>
                     
+                    <!-- DPDP Act 2023 Statutory Consent & Age Declaration -->
+                    <div class="dpdp-consent-group">
+                        <label class="dpdp-checkbox-label">
+                            <input type="checkbox" id="dpdp_consent" name="dpdp_consent" required>
+                            <span>I hereby provide free and informed consent for my name, email, phone, and message to be processed for responding to my inquiry in accordance with the <a href="privacy-policy.html" target="_blank">Privacy Policy</a> and <a href="terms-conditions.html" target="_blank">Terms & Conditions</a>. (DPDP Act 2023) *</span>
+                        </label>
+                        <label class="dpdp-checkbox-label">
+                            <input type="checkbox" id="dpdp_age_declaration" name="dpdp_age_declaration" required>
+                            <span>I declare that I am 18 years of age or older (Section 9 DPDP Act 2023 child data protection compliance). *</span>
+                        </label>
+                    </div>
+
                     <div class="button-area">
-                        <button type="submit">
+                        <button type="submit" id="contact_submit_btn">
                             Transmit Message <i class="fa fa-paper-plane"></i>
                         </button>
                     </div>
@@ -392,7 +419,7 @@
             <div class="box">
                 <h3>VIKASH's Portfolio</h3>
                 <p>Thank you for visiting my Portfolio website. Connect with me over socials. <br/> <br/> Keep Rising 🚀</p>
-                <p>Client IP: <span id="Clientip">Fetching...</span></p>
+                <p>Client IP: <span id="Clientip">Requires Consent</span></p>
                 <p>Total Visitors: <span id="visitorCount">0</span></p>
             </div>
       
@@ -410,8 +437,19 @@
                 </div>
             </div>
         </div>
+
+        <!-- Statutory Compliance & DPDP Footer Links -->
+        <div class="footer-compliance-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-conditions.html">Terms & Conditions</a>
+            <a href="cookie-policy.html">Cookie Policy</a>
+            <a href="grievance-redressal.html">Grievance Redressal</a>
+            <a href="disclaimer.html">Disclaimer</a>
+            <a href="privacy-settings.html">Privacy Preferences / My Data</a>
+        </div>
+
         <div class="credit">
-            Designed with <i class="fa fa-heart pulse"></i> by <a href="https://www.linkedin.com/in/vikash-janarthanan-5b5056228" target="_blank">VIKASH J</a>
+            Designed with <i class="fa fa-heart pulse"></i> by <a href="https://www.linkedin.com/in/vikash-janarthanan-5b5056228" target="_blank">VIKASH J</a> | DPDP Act 2023 & IT Act Compliant
         </div>
     </footer>
     <!-- footer section ends -->

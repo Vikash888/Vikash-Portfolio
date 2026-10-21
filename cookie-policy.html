@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Cookie Policy - VIKASH Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link id="favicon" rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-png">
+</head>
+<body class="dark-mode">
+    <header>
+        <a href="index.html#home" class="logo"><img src="./assets/images/Logo.png" alt="Logo" /></a>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="privacy-settings.html">My Data</a></li>
+            </ul>
+        </nav>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme"><i class="fas fa-sun"></i></button>
+    </header>
+
+    <main class="legal-wrapper">
+        <a href="index.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+
+        <div class="legal-header">
+            <h1>Cookie & Local Storage Policy</h1>
+            <div class="legal-meta">
+                <span><i class="fas fa-cookie-bite"></i> Framework: Consent-First Architecture</span>
+                <span><i class="fas fa-calendar-alt"></i> Updated: <span class="placeholder-tag">[FILL THIS: October 21, 2026]</span></span>
+            </div>
+        </div>
+
+        <article class="legal-card">
+            <h2>1. What Are Cookies and Local Storage?</h2>
+            <p>
+                Cookies and browser local storage are small data text snippets stored on your device by your web browser. Under India's <strong>DPDP Act 2023</strong>, non-essential cookies and client-side identifiers that track users require prior affirmative consent.
+            </p>
+
+            <h2>2. Our Zero-Tracking Without Consent Commitment</h2>
+            <p>
+                We do not inject any non-essential, analytics, or third-party telemetry trackers until you click <strong>"Accept All"</strong> or enable them explicitly in our Cookie Preference settings.
+            </p>
+
+            <h2>3. Detailed Inventory of Cookies and Storage Keys</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Key / Name</th>
+                        <th>Type</th>
+                        <th>Category</th>
+                        <th>Lifespan</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>theme</code></td>
+                        <td>localStorage</td>
+                        <td>Strictly Necessary</td>
+                        <td>Persistent</td>
+                        <td>Stores your preferred visual theme (dark mode or light mode).</td>
+                    </tr>
+                    <tr>
+                        <td><code>dpdp_consent_preferences</code></td>
+                        <td>localStorage</td>
+                        <td>Strictly Necessary</td>
+                        <td>Persistent</td>
+                        <td>Stores your explicit cookie and data processing consent choices.</td>
+                    </tr>
+                    <tr>
+                        <td><code>visited</code></td>
+                        <td>Cookie</td>
+                        <td>Functional / Analytics</td>
+                        <td>24 Hours</td>
+                        <td>Deduplicates daily portfolio visitor counters. Only set upon consent.</td>
+                    </tr>
+                    <tr>
+                        <td><code>visitorCount</code></td>
+                        <td>localStorage</td>
+                        <td>Analytics</td>
+                        <td>Persistent</td>
+                        <td>Maintains cached count of portfolio page views.</td>
+                    </tr>
+                    <tr>
+                        <td><code>cf_clearance</code> / CDN</td>
+                        <td>Cookie</td>
+                        <td>Security (Essential)</td>
+                        <td>Session</td>
+                        <td>Used by CDN / DDoS protection layers to prevent bot abuse.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>4. Managing and Revoking Cookie Preferences</h2>
+            <p>
+                You can inspect, modify, or completely reset your stored cookie consent preferences at any time by clicking the button below or visiting the <a href="privacy-settings.html">Privacy Preferences</a> page:
+            </p>
+            <div style="margin: 2rem 0;">
+                <button type="button" class="cookie-btn cookie-btn-primary" onclick="window.openCookiePreferencesModal && window.openCookiePreferencesModal()">
+                    <i class="fas fa-sliders-h"></i> Customize Cookie Preferences
+                </button>
+                <button type="button" class="cookie-btn cookie-btn-secondary" onclick="window.clearAllStorageAndReset && window.clearAllStorageAndReset()" style="margin-left: 1rem;">
+                    <i class="fas fa-trash-alt"></i> Clear All Stored Data & Cookies
+                </button>
+            </div>
+
+            <h2>5. Browser-Level Controls</h2>
+            <p>
+                You may also configure your web browser (Chrome, Firefox, Safari, Edge) to block or delete cookies entirely. Please note that blocking essential storage may cause theme preferences to reset upon page refresh.
+            </p>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-compliance-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-conditions.html">Terms & Conditions</a>
+            <a href="cookie-policy.html">Cookie Policy</a>
+            <a href="grievance-redressal.html">Grievance Redressal</a>
+            <a href="disclaimer.html">Disclaimer</a>
+            <a href="privacy-settings.html">Privacy Preferences / My Data</a>
+        </div>
+        <div class="credit">
+            DPDP Compliant &copy; 2026 <a href="index.html">VIKASH J</a>. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

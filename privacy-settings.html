@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>My Data & Privacy Rights Portal - VIKASH Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link id="favicon" rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-png">
+    <style>
+        .privacy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+        .data-box {
+            background: var(--card-sub-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 2rem;
+            font-family: monospace;
+            font-size: 1.35rem;
+            max-height: 220px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+            color: var(--text-color);
+        }
+        .form-row {
+            margin-bottom: 1.6rem;
+            text-align: left;
+        }
+        .form-row label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+            font-size: 1.4rem;
+            color: var(--text-color);
+        }
+        .form-row input, .form-row select, .form-row textarea {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--card-sub-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-color);
+            font-size: 1.4rem;
+            font-family: inherit;
+        }
+        .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        .nominee-group {
+            display: none;
+            background: rgba(37, 6, 173, 0.05);
+            border: 1px dashed var(--primary-color);
+            padding: 1.6rem;
+            border-radius: var(--radius-sm);
+            margin-bottom: 1.6rem;
+        }
+        body.dark-mode .nominee-group {
+            background: rgba(99, 102, 241, 0.1);
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <header>
+        <a href="index.html#home" class="logo"><img src="./assets/images/Logo.png" alt="Logo" /></a>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="privacy-settings.html" class="active">My Data</a></li>
+            </ul>
+        </nav>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Theme"><i class="fas fa-sun"></i></button>
+    </header>
+
+    <main class="legal-wrapper">
+        <a href="index.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+
+        <div class="legal-header">
+            <h1>Data Principal Privacy & Rights Portal</h1>
+            <div class="legal-meta">
+                <span><i class="fas fa-user-shield"></i> Exercise Rights under DPDP Act 2023 (Sections 11–14)</span>
+                <span><i class="fas fa-clock"></i> SLA: 30 Days</span>
+            </div>
+        </div>
+
+        <div class="privacy-grid">
+            <!-- SECTION 1: INSPECT CURRENT LOCAL DATA -->
+            <article class="legal-card" style="margin-bottom: 0;">
+                <h2><i class="fas fa-database"></i> Stored On Your Device</h2>
+                <p>In accordance with data transparency, here is the telemetry and session data currently stored in your browser for this domain:</p>
+                <div class="data-box" id="deviceDataInspector">Loading stored data...</div>
+                
+                <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+                    <button type="button" class="cookie-btn cookie-btn-primary" onclick="window.openCookiePreferencesModal && window.openCookiePreferencesModal()">
+                        <i class="fas fa-sliders-h"></i> Modify Cookie Consent
+                    </button>
+                    <button type="button" class="cookie-btn cookie-btn-secondary" onclick="clearAllDeviceData()">
+                        <i class="fas fa-trash-alt"></i> Withdraw Consent & Erase Local Data
+                    </button>
+                </div>
+            </article>
+
+            <!-- SECTION 2: SUBMIT STATUTORY RIGHTS REQUEST -->
+            <article class="legal-card" style="margin-bottom: 0;">
+                <h2><i class="fas fa-paper-plane"></i> Submit Statutory Rights Request</h2>
+                <p>Submit an official request to access, correct, delete your data, withdraw consent, or nominate a representative:</p>
+
+                <div id="requestAlert" class="form-alert"></div>
+
+                <form id="privacyRightsForm">
+                    <div class="form-row">
+                        <label for="requestType">Select DPDP Right to Exercise *</label>
+                        <select id="requestType" required onchange="toggleNomineeFields(this.value)">
+                            <option value="">-- Choose Right --</option>
+                            <option value="access">Access / Summary of My Data (Section 11)</option>
+                            <option value="correction">Correction / Rectification (Section 12)</option>
+                            <option value="erasure">Erasure / Deletion of Personal Data (Section 12)</option>
+                            <option value="withdraw_consent">Withdraw All Previously Given Consent</option>
+                            <option value="nomination">Nominate a Representative (Section 14)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="principalName">Your Full Name *</label>
+                        <input type="text" id="principalName" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="principalEmail">Your Registered Email Address *</label>
+                        <input type="email" id="principalEmail" placeholder="e.g. yourname@example.com" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="principalPhone">Phone Number (Optional)</label>
+                        <input type="tel" id="principalPhone" placeholder="+91 XXXXX XXXXX">
+                    </div>
+
+                    <!-- NOMINATION SECTION (CONDITIONAL) -->
+                    <div class="nominee-group" id="nomineeFields">
+                        <h3 style="margin-top:0; font-size:1.5rem;"><i class="fas fa-user-tag"></i> Nominee Details (Section 14 DPDP Act)</h3>
+                        <p style="font-size:1.3rem; margin-bottom:1rem;">In case of death or incapacity, this nominee will exercise your privacy rights.</p>
+                        <div class="form-row">
+                            <label for="nomineeName">Nominee Full Name *</label>
+                            <input type="text" id="nomineeName" placeholder="Full name of nominee">
+                        </div>
+                        <div class="form-row">
+                            <label for="nomineeContact">Nominee Email / Phone *</label>
+                            <input type="text" id="nomineeContact" placeholder="Nominee contact details">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="requestDetails">Details / Description of Request *</label>
+                        <textarea id="requestDetails" rows="4" placeholder="Please specify the exact personal data or action requested..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="cookie-btn cookie-btn-primary" style="width: 100%; justify-content: center;">
+                        <i class="fas fa-check-circle"></i> Submit Official Request
+                    </button>
+                </form>
+            </article>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-compliance-links">
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="terms-conditions.html">Terms & Conditions</a>
+            <a href="cookie-policy.html">Cookie Policy</a>
+            <a href="grievance-redressal.html">Grievance Redressal</a>
+            <a href="disclaimer.html">Disclaimer</a>
+            <a href="privacy-settings.html">Privacy Preferences / My Data</a>
+        </div>
+        <div class="credit">
+            DPDP Compliant &copy; 2026 <a href="index.html">VIKASH J</a>. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function renderDeviceData() {
+            const inspector = document.getElementById('deviceDataInspector');
+            if (!inspector) return;
+
+            const storedData = {
+                cookies: document.cookie || '(No cookies stored)',
+                localStorage: {
+                    theme: localStorage.getItem('theme') || '(None)',
+                    visitorCount: localStorage.getItem('visitorCount') || '(None)',
+                    dpdp_consent: localStorage.getItem('dpdp_consent_preferences') || '(Not yet set)'
+                },
+                sessionStorageCount: sessionStorage.length
+            };
+
+            inspector.textContent = JSON.stringify(storedData, null, 2);
+        }
+
+        function clearAllDeviceData() {
+            if (confirm('Are you sure you want to withdraw all consent and erase all stored cookies and local data from your browser?')) {
+                localStorage.clear();
+                sessionStorage.clear();
+                
+                // Clear visited cookie
+                document.cookie = 'visited=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                
+                alert('All local data and consent preferences have been erased successfully.');
+                renderDeviceData();
+                location.reload();
+            }
+        }
+
+        function toggleNomineeFields(type) {
+            const nomineeFields = document.getElementById('nomineeFields');
+            const nomineeName = document.getElementById('nomineeName');
+            const nomineeContact = document.getElementById('nomineeContact');
+            if (type === 'nomination') {
+                nomineeFields.style.display = 'block';
+                nomineeName.required = true;
+                nomineeContact.required = true;
+            } else {
+                nomineeFields.style.display = 'none';
+                nomineeName.required = false;
+                nomineeContact.required = false;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            renderDeviceData();
+
+            const form = document.getElementById('privacyRightsForm');
+            const alertBox = document.getElementById('requestAlert');
+
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const ticketId = 'DPDP-' + Math.floor(100000 + Math.random() * 900000);
+                    const type = document.getElementById('requestType').value;
+                    const name = document.getElementById('principalName').value.trim();
+                    const email = document.getElementById('principalEmail').value.trim();
+                    const phone = document.getElementById('principalPhone').value.trim();
+                    const details = document.getElementById('requestDetails').value.trim();
+                    const nomineeName = document.getElementById('nomineeName').value.trim();
+                    const nomineeContact = document.getElementById('nomineeContact').value.trim();
+
+                    // Record request in localStorage for user's audit trail
+                    const requests = JSON.parse(localStorage.getItem('my_dpdp_requests') || '[]');
+                    const newRequest = {
+                        ticketId,
+                        type,
+                        name,
+                        email,
+                        phone,
+                        details,
+                        nomineeName,
+                        nomineeContact,
+                        submittedAt: new Date().toISOString(),
+                        status: 'Pending Review (SLA: 30 Days)'
+                    };
+                    requests.push(newRequest);
+                    localStorage.setItem('my_dpdp_requests', JSON.stringify(requests));
+
+                    alertBox.className = 'form-alert form-alert-success';
+                    alertBox.style.display = 'block';
+                    alertBox.innerHTML = `
+                        <strong><i class="fas fa-check-circle"></i> Request Logged Successfully!</strong><br>
+                        Your DPDP Ticket Reference: <strong>${ticketId}</strong><br>
+                        A confirmation has been recorded. Our Grievance Redressal Officer will review your request within 48 hours and complete resolution within 30 days (Statutory SLA: 90 days).
+                    `;
+
+                    form.reset();
+                    toggleNomineeFields('');
+                    renderDeviceData();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
